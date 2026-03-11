@@ -1,0 +1,71 @@
+{
+  "name": "Claude Code Sandbox with WireMock",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "TZ": "${templateOption:timezone}",
+      "JAVA_VERSION": "${templateOption:javaVersion}",
+      "NODE_VERSION": "20",
+      "CLAUDE_CODE_VERSION": "latest",
+      "GIT_DELTA_VERSION": "0.18.2",
+      "ZSH_IN_DOCKER_VERSION": "1.2.0"
+    }
+  },
+  "runArgs": [
+    "--cap-add=NET_ADMIN",
+    "--cap-add=NET_RAW"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "anthropic.claude-code",
+        "vscjava.vscode-java-pack",
+        "fwcd.kotlin",
+        "vscjava.vscode-gradle",
+        "eamodio.gitlens"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "bash",
+            "icon": "terminal-bash"
+          },
+          "zsh": {
+            "path": "zsh"
+          }
+        },
+        "java.configuration.runtimes": [
+          {
+            "name": "JavaSE-${templateOption:javaVersion}",
+            "path": "/opt/java/openjdk",
+            "default": true
+          }
+        ]
+      }
+    },
+    "jetbrains": {
+      "backend": "IntelliJ",
+      "settings": {
+        "org.jetbrains.plugins.terminal.shellPath": "/bin/zsh"
+      }
+    }
+  },
+  "remoteUser": "vscode",
+  "mounts": [
+    "source=claude-code-wm-bashhistory-${devcontainerId},target=/commandhistory,type=volume",
+    "source=claude-code-wm-config-${devcontainerId},target=/home/vscode/.claude,type=volume",
+    "source=claude-code-wm-gradle-cache-${devcontainerId},target=/home/vscode/.gradle,type=volume",
+    "source=${localEnv:HOME}/.config/wiremock-cli,target=/home/vscode/.config/wiremock-cli,type=bind,readonly"
+  ],
+  "containerEnv": {
+    "CLAUDE_CONFIG_DIR": "/home/vscode/.claude",
+    "JAVA_HOME": "/opt/java/openjdk",
+    "GRADLE_USER_HOME": "/home/vscode/.gradle",
+    "POWERLEVEL9K_DISABLE_GITSTATUS": "true"
+  },
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=delegated",
+  "workspaceFolder": "/workspace",
+  "postStartCommand": "sudo /usr/local/bin/init-firewall.sh",
+  "waitFor": "postStartCommand"
+}

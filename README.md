@@ -23,6 +23,17 @@ A sandboxed devcontainer for running Claude Code with firewall isolation, pre-co
 - WireMock domains
 - Docker registries
 
+### Claude Code Sandbox with WireMock (`claude-code-wiremock`)
+
+Everything in the base `claude-code` template, plus:
+
+- **WireMock MCP server** - interact with WireMock Cloud mock APIs directly from Claude Code
+- **Arazzo runner MCP server** - execute Arazzo workflow specifications against APIs
+- **WireMock skills plugin** (`wiremock-inc/skills`) - pre-installed skills for building API simulations, creating stubs, stateful/data-driven mocking, and more
+
+**Prerequisites:**
+- WireMock CLI must be authenticated on the host (`wiremock auth login`). The host config at `~/.config/wiremock-cli/` is bind-mounted read-only into the container.
+
 ## Usage
 
 ### Option 1: Dev Containers CLI
