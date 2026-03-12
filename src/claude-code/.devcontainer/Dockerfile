@@ -80,8 +80,8 @@ RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhisto
     && echo "$SNIPPET" >> /home/$USERNAME/.zshrc
 
 # Create workspace and claude config directories
-RUN mkdir -p /workspace /home/$USERNAME/.claude /home/$USERNAME/.gradle \
-    && chown -R $USERNAME:$USERNAME /workspace /home/$USERNAME/.claude /home/$USERNAME/.gradle
+RUN mkdir -p /workspace /home/$USERNAME/.claude /home/$USERNAME/.gradle /home/$USERNAME/.m2 \
+    && chown -R $USERNAME:$USERNAME /workspace /home/$USERNAME/.claude /home/$USERNAME/.gradle /home/$USERNAME/.m2
 
 # Install Claude Code CLI
 RUN npm install -g @anthropic-ai/claude-code@${CLAUDE_CODE_VERSION}

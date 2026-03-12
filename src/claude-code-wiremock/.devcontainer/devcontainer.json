@@ -51,6 +51,7 @@
       }
     }
   },
+  "initializeCommand": "mkdir -p \"${HOME}/.gradle\" \"${HOME}/.m2\"",
   "remoteUser": "vscode",
   "mounts": [
     "source=claude-code-wm-bashhistory-${devcontainerId},target=/commandhistory,type=volume",
