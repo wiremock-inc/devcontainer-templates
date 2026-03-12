@@ -55,7 +55,8 @@
   "mounts": [
     "source=claude-code-bashhistory-${devcontainerId},target=/commandhistory,type=volume",
     "source=claude-code-config-${devcontainerId},target=/home/vscode/.claude,type=volume",
-    "source=claude-code-gradle-cache-${devcontainerId},target=/home/vscode/.gradle,type=volume"
+    "source=${localEnv:HOME}/.gradle,target=/home/vscode/.gradle,type=bind",
+    "source=${localEnv:HOME}/.m2,target=/home/vscode/.m2,type=bind"
   ],
   "containerEnv": {
     "CLAUDE_CONFIG_DIR": "/home/vscode/.claude",
