@@ -63,7 +63,8 @@
     "CLAUDE_CONFIG_DIR": "/home/vscode/.claude",
     "JAVA_HOME": "/opt/java/openjdk",
     "GRADLE_USER_HOME": "/home/vscode/.gradle",
-    "POWERLEVEL9K_DISABLE_GITSTATUS": "true"
+    "POWERLEVEL9K_DISABLE_GITSTATUS": "true",
+    "COLORTERM": "truecolor"
   },
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=delegated",
   "workspaceFolder": "/workspace",
