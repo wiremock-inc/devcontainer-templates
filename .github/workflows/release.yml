@@ -10,9 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       packages: write
-      contents: read
+      contents: write
     steps:
       - uses: actions/checkout@v4
+
+      - name: Bump template versions
+        run: |
+          DATE_VERSION="1.0.$(date +%Y%m%d%H%M%S)"
+          for f in $(find ./src -name 'devcontainer-template.json'); do
+            jq --arg v "$DATE_VERSION" '.version = $v' "$f" > "$f.tmp" && mv "$f.tmp" "$f"
+          done
 
       - name: Publish templates
         uses: devcontainers/action@v1
@@ -22,3 +29,11 @@ jobs:
           generate-docs: "true"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit version bump
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/*/devcontainer-template.json
+          git commit -m "Bump template versions [skip ci]" || true
+          git push
