@@ -1,22 +1,33 @@
 {
   "id": "claude-code",
-  "version": "1.0.0",
+  "version": "1.0.20260318163559",
   "name": "Claude Code Sandbox",
   "description": "Sandboxed devcontainer for running Claude Code with firewall isolation, pre-configured for JVM/Kotlin projects",
   "documentationUrl": "https://github.com/wiremock-inc/devcontainer-templates",
   "licenseUrl": "https://github.com/wiremock-inc/devcontainer-templates/blob/main/LICENSE",
-  "platforms": ["Any"],
+  "platforms": [
+    "Any"
+  ],
   "options": {
     "javaVersion": {
       "type": "string",
       "description": "Java version (Eclipse Temurin JDK)",
-      "proposals": ["17", "21", "25"],
+      "proposals": [
+        "17",
+        "21",
+        "25"
+      ],
       "default": "17"
     },
     "timezone": {
       "type": "string",
       "description": "Container timezone",
-      "proposals": ["Europe/London", "America/New_York", "America/Los_Angeles", "UTC"],
+      "proposals": [
+        "Europe/London",
+        "America/New_York",
+        "America/Los_Angeles",
+        "UTC"
+      ],
       "default": "Europe/London"
     }
   }
