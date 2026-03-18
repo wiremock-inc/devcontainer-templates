@@ -51,13 +51,12 @@
       }
     }
   },
-  "initializeCommand": "mkdir -p \"${HOME}/.gradle\" \"${HOME}/.m2\"",
   "remoteUser": "vscode",
   "mounts": [
     "source=claude-code-bashhistory-${devcontainerId},target=/commandhistory,type=volume",
     "source=claude-code-config-${devcontainerId},target=/home/vscode/.claude,type=volume",
-    "source=${localEnv:HOME}/.gradle,target=/home/vscode/.gradle,type=bind",
-    "source=${localEnv:HOME}/.m2,target=/home/vscode/.m2,type=bind"
+    "source=claude-code-gradle-${devcontainerId},target=/home/vscode/.gradle,type=volume",
+    "source=claude-code-m2-${devcontainerId},target=/home/vscode/.m2,type=volume"
   ],
   "containerEnv": {
     "CLAUDE_CONFIG_DIR": "/home/vscode/.claude",
