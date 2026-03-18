@@ -1,6 +1,6 @@
 {
   "id": "claude-code-wiremock",
-  "version": "1.0.20260318163559",
+  "version": "1.0.20260318221246",
   "name": "Claude Code Sandbox with WireMock",
   "description": "Sandboxed devcontainer for running Claude Code with firewall isolation, pre-configured for JVM/Kotlin projects with WireMock MCP server, Arazzo runner and WireMock skills plugin",
   "documentationUrl": "https://github.com/wiremock-inc/devcontainer-templates",
