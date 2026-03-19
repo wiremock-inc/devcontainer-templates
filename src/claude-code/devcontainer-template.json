@@ -1,6 +1,6 @@
 {
   "id": "claude-code",
-  "version": "1.0.20260318221246",
+  "version": "1.0.20260319135543",
   "name": "Claude Code Sandbox",
   "description": "Sandboxed devcontainer for running Claude Code with firewall isolation, pre-configured for JVM/Kotlin projects",
   "documentationUrl": "https://github.com/wiremock-inc/devcontainer-templates",
