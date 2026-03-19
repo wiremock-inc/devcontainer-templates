@@ -35,9 +35,12 @@ if [ ! -f "${WIREMOCK_CONFIG_DIR}/config.yaml" ]; then
     exit 1
 fi
 
+# Ensure host directories exist for bind mounts
+mkdir -p "$HOME/.gradle" "$HOME/.m2"
+
 # Check that bind-mounted directories are shared with Docker
 UNSHARED_DIRS=()
-for dir in "$WIREMOCK_CONFIG_DIR"; do
+for dir in "$HOME/.gradle" "$HOME/.m2" "$WIREMOCK_CONFIG_DIR"; do
     if ! docker run --rm -v "$dir:/mnt/test:ro" alpine true 2>/dev/null; then
         UNSHARED_DIRS+=("$dir")
     fi

@@ -27,6 +27,28 @@ fi
 
 export ANTHROPIC_API_KEY
 
+# Ensure host directories exist for bind mounts
+mkdir -p "$HOME/.gradle" "$HOME/.m2"
+
+# Check that bind-mounted directories are shared with Docker
+UNSHARED_DIRS=()
+for dir in "$HOME/.gradle" "$HOME/.m2"; do
+    if ! docker run --rm -v "$dir:/mnt/test:ro" alpine true 2>/dev/null; then
+        UNSHARED_DIRS+=("$dir")
+    fi
+done
+
+if [ ${#UNSHARED_DIRS[@]} -gt 0 ]; then
+    echo "Error: The following directories are not shared with Docker:"
+    for dir in "${UNSHARED_DIRS[@]}"; do
+        echo "  - $dir"
+    done
+    echo ""
+    echo "In Docker Desktop, go to Settings > Resources > File Sharing and add these paths,"
+    echo "or add their parent directory (e.g. $HOME)."
+    exit 1
+fi
+
 # Parse args: --rebuild is for devcontainer, everything else is for claude
 REBUILD=false
 CLAUDE_ARGS=()

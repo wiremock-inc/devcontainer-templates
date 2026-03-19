@@ -52,11 +52,14 @@
     }
   },
   "remoteUser": "vscode",
+  "initializeCommand": "mkdir -p \"${HOME}/.gradle\" \"${HOME}/.m2\"",
   "mounts": [
     "source=claude-code-wm-bashhistory-${devcontainerId},target=/commandhistory,type=volume",
     "source=claude-code-wm-config-${devcontainerId},target=/home/vscode/.claude,type=volume",
     "source=claude-code-wm-gradle-${devcontainerId},target=/home/vscode/.gradle,type=volume",
     "source=claude-code-wm-m2-${devcontainerId},target=/home/vscode/.m2,type=volume",
+    "source=${localEnv:HOME}/.gradle,target=/host-config/.gradle,type=bind,readonly",
+    "source=${localEnv:HOME}/.m2,target=/host-config/.m2,type=bind,readonly",
     "source=${localEnv:HOME}/.config/wiremock-cli,target=/home/vscode/.config/wiremock-cli,type=bind,readonly"
   ],
   "containerEnv": {
@@ -68,6 +71,6 @@
   },
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=delegated",
   "workspaceFolder": "/workspace",
-  "postStartCommand": "sudo /usr/local/bin/init-firewall.sh",
+  "postStartCommand": "cp -n /host-config/.gradle/gradle.properties /home/vscode/.gradle/gradle.properties 2>/dev/null; cp -n /host-config/.m2/settings.xml /home/vscode/.m2/settings.xml 2>/dev/null; sudo /usr/local/bin/init-firewall.sh",
   "waitFor": "postStartCommand"
 }
